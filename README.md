@@ -12,7 +12,7 @@ Android获取全局截图demo。无root。
 
 另外从Android不知道哪个版本开始，通过MediaProjection获取屏幕信息时，必须启动一个前台Notification显式提示用户当前正在获取屏幕。所以整个过程还要额外开启一个Notification Service并设置为前台。
 
-为什么创建一个透明Activity，而不是直接获取整个屏幕的VirtualDisplay？~~这可能会导致其他应用卡死，你可以逝一逝。~~原因暂时没去深究，只能定位到是由于创建了全局VirtualDisplay导致的某些冲突。
+为什么创建一个透明Activity，而不是直接获取整个屏幕的VirtualDisplay？~~这可能会导致其他应用卡死，你可以逝一逝。~~ 原因暂时没去深究，只能定位到是由于创建了全局VirtualDisplay导致的某些冲突。
 
 > #### VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY
 >
