@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ScreenshotDemo</string>
+    <string name="notification_permission">通知权限</string>
+    <string name="notification_permission_warning">从android11开始，录屏必须同时开启一个前台通知服务以提示用户</string>
+    <string name="float_window_permission">悬浮窗权限</string>
+    <string name="float_window_permission_warning">用于启动全局悬浮球</string>
+    <string name="authorize">确定</string>
+    <string name="cancel">取消</string>
+    <string name="switch_float_ball">开启/关闭悬浮球</string>
+    <string name="quick_tile_manual">快捷开关使用方法</string>
+    <string name="quick_tile_manual_content">下拉通知栏，点击编辑快捷开关面板，找到“磁贴截图”，添加到快捷开关面板，以后点击快捷开关即触发截图。</string>
+    <string name="quick_tile_name">磁贴截图</string>
+    <string name="repository_address">仓库地址</string>
+    <string name="repository_url">https://github.com/blueskybone/ScreenshotDemo</string>
+    <string name="save_image_success">保存图片成功</string>
+    <string name="save_image_failed">保存图片失败</string>
+    <string name="notification_content">此通知是用于截图的必要操作，可自行关闭。</string>
+</resources>

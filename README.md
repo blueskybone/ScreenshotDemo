@@ -1,27 +1,41 @@
 # ScreenshotDemo
-Taking a screenshot in global system field in native android without root. Detached from another project Arkscreen. Written in kotlin.
+Android获取全局截图demo。无root。
 
-一个在系统域内获取屏幕截图的demo，使用原生android方法，无需root。
-
-# TODO
-先开个坑，晚点在写
+此demo来源于项目[Arkscreen](github.com/blueskybone/ArkScreen)。
 
 ## 原理
-通常有3种方法可以捕获应用外画面，但一种需要root权限，另一种通过反射触发系统原生截图会产生截图动画效果（并且高版本的android中反射很不方便），最后的方案是从录屏活动中获取画面缓冲序列，取出作为截图。
+创建虚拟显示器进行录屏，从录屏中获取画面缓冲序列，取出后转化为bitmap。
 
-基本原理上是打开一个透明Activity，创建virtualdisplay，启动录屏，获取图片缓冲，结束录屏，释放virtualdisplay。
+## 方法
 
-为什么创建一个透明Activity，而不是直接获取整个系统的virtualdisplay？~~可能会导致应用卡死，你可以逝一逝。原因暂时没去深究，只能确定是创建全局virtualdisplay会导致某些冲突。~~
+动态获取录屏权限后，启动一个透明Activity，创建VirtualDisplay，从ImageReader中获取图片缓冲，释放VirtualDisplay，退出Activity。获取的图片转化为bitmap后，可以保存，或做其他用途。此demo的后处理为保存bitmap到本地相册。
+
+另外从Android不知道哪个版本开始，通过MediaProjection获取屏幕信息时，必须启动一个前台Notification显式提示用户当前正在获取屏幕。所以整个过程还要额外开启一个Notification Service并设置为前台。
+
+为什么创建一个透明Activity，而不是直接获取整个屏幕的VirtualDisplay？~~这可能会导致其他应用卡死，你可以逝一逝。~~原因暂时没去深究，只能定位到是由于创建了全局VirtualDisplay导致的某些冲突。
+
+> #### VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY
+>
+> 虚拟显示标志：只显示该显示器本身的内容； 不要镜像另一个显示器的内容。
+> 此标志与VIRTUAL_DISPLAY_FLAG_PUBLIC结合使用。 通常，如果公共虚拟显示器没有自己的窗口，它们将自动镜像默认显示器的内容。 当这个标志被指定时，虚拟显示器将只显示它自己的内容，如果它没有窗口，它将被消隐。
+>
+> 来自[VirtualDisplay的Flag参数讲解](https://www.cnblogs.com/liming-1943546556/p/15544714.html)
 
 ## 效果
-由于获取屏幕的时间极短，测试截图导致屏幕占用平均时间约0.3s，体感上停顿可以忽略不计。作为一种非入侵式的屏幕获取方案还是很不错的。
+测试截图平均时间约0.5s，体感上的停顿可以忽略不计。
 
 ## 其他
-为展示全局效果，使用android快捷开关面板触发截图选项。
-
 
 有一些局限性：
 
-1. 除了华为系的系统，此方法无法和系统录屏共存。如果在系统录屏时使用截图由于virtualdisplay正在被占用，会导致创建失败。华为系可能采用了其他的录屏方案。
+1. 除了华为系统，此方法无法和系统录屏共存。当开启屏幕录制时，使用此方法截图会出现VirtualDisplay创建失败。
 
 2. 无法突破某些不允许录屏的应用，比如你B的漫画。~~题外话，以前有通过录屏的手段来规避禁止截图的机制，现在不知道还行不行。~~
+
+## 引用
+
+悬浮窗框架：[EasyWindow](https://github.com/getActivity/EasyWindow)
+
+吐司框架：[Toaster](https://github.com/getActivity/Toaster)
+
+图标来源：https://ak.hypergryph.com/mymind
