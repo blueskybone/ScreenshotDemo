@@ -1,5 +1,7 @@
 # ScreenshotDemo
-A demo shows how to take a screenshot in global system field in native android. Detached from another project Arkscreen. Written in kotlin.
+Taking a screenshot in global system field in native android without root. Detached from another project Arkscreen. Written in kotlin.
+
+一个在系统域内获取屏幕截图的demo，使用原生android方法，无需root。
 
 # TODO
 先开个坑，晚点在写
