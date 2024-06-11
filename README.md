@@ -12,7 +12,7 @@ Android获取全局截图demo。无root。
 
 另外从Android不知道哪个版本开始，通过MediaProjection获取屏幕信息时，必须启动一个前台Notification显式提示用户当前正在获取屏幕。所以整个过程还要额外开启一个Notification Service并设置为前台。
 
-为什么创建一个透明Activity，而不是直接获取整个屏幕的VirtualDisplay？~~这可能会导致其他应用卡死，你可以逝一逝。~~原因暂时没去深究，只能定位到是由于创建了全局VirtualDisplay导致的某些冲突。
+为什么创建一个透明Activity，而不是直接获取整个屏幕的VirtualDisplay？~~这可能会导致其他应用卡死，你可以逝一逝。~~ 原因暂时没去深究，只能定位到是由于创建了全局VirtualDisplay导致的某些冲突。
 
 > #### VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY
 >
@@ -24,13 +24,11 @@ Android获取全局截图demo。无root。
 ## 效果
 测试截图平均时间约0.5s，体感上的停顿可以忽略不计。
 
-## 其他
+## 局限
 
-有一些局限性：
-
-1. 除了华为系统，此方法无法和系统录屏共存。当开启屏幕录制时，使用此方法截图会出现VirtualDisplay创建失败。
-
-2. 无法突破某些不允许录屏的应用，比如你B的漫画。~~题外话，以前有通过录屏的手段来规避禁止截图的机制，现在不知道还行不行。~~
+1. A14开始无法保存录屏动态授权结果，导致每次获取屏幕都必须动态获取权限并更新mediaProjectionManager。
+  
+2. 除了华为系统，此方法无法和系统录屏共存。当开启屏幕录制时，使用此方法截图会出现VirtualDisplay创建失败。
 
 ## 引用
 
