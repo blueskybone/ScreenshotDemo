@@ -173,10 +173,10 @@ fun MainView() {
                             .setOnClickListener(
                                 android.R.id.icon,
                                 EasyWindow.OnClickListener { _: EasyWindow<*>?, _: ImageView? ->
-                                    if (APP.getScreenshotPermission() == null) {
-                                        APP.startScreenTask(APP)
-                                    } else {
+                                    if (Build.VERSION.SDK_INT < 34 && APP.getScreenshotPermission() != null) {
                                         APP.startScreenshot()
+                                    }else{
+                                        APP.startScreenTask(APP)
                                     }
                                 } as EasyWindow.OnClickListener<ImageView?>)
                             .show()

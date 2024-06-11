@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.projection.MediaProjection
 import android.media.projection.MediaProjectionManager
+import android.os.Build
 import android.view.Gravity
 import com.blueskybone.screenshotdemo.activity.DynamicPermissionActivity
 import com.blueskybone.screenshotdemo.service.NotificationService
@@ -86,7 +87,9 @@ class App : Application() {
     }
 
     fun startScreenTask(context: Context) {
-        if (APP.getScreenshotPermission() != null) {
+        //Android14开始，不能通过保存ScreenshotPermission的方法反复截屏，
+        //只能每次截屏获取一次动态权限。
+        if (Build.VERSION.SDK_INT < 34 && APP.getScreenshotPermission() != null) {
             val intent = Intent(context, NotificationService::class.java)
             context.startForegroundService(intent)
         } else {

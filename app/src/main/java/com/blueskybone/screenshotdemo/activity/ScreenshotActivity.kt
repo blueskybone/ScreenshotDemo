@@ -10,7 +10,7 @@ import android.media.ImageReader
 import android.media.projection.MediaProjection
 import android.view.Surface
 import com.blueskybone.screenshotdemo.APP
-import com.blueskybone.screenshotdemo.util.TimeUtils.getFormatDate
+import com.blueskybone.screenshotdemo.util.getFormatDate
 import com.blueskybone.screenshotdemo.util.convertImageToBitmap
 import com.blueskybone.screenshotdemo.util.getDensityDpi
 import com.blueskybone.screenshotdemo.util.getRealScreenSize
