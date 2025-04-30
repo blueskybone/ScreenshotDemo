@@ -31,11 +31,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.app.NotificationManagerCompat
+import com.blueskybone.screenshotdemo.service.AcquireCapturePermission
+import com.blueskybone.screenshotdemo.service.CapturePermission
+import com.blueskybone.screenshotdemo.service.ScreenshotService
 import com.blueskybone.screenshotdemo.util.stringRes
+import com.hjq.toast.Toaster
 import com.hjq.window.EasyWindow
 import com.hjq.window.draggable.MovingDraggable
 
@@ -62,7 +67,7 @@ class Home : ComponentActivity() {
             MainView()
             AlertDialogRequestNotification()
             AlertDialogRequestOverlayPermission()
-            //TODO:申请访问外部权限
+            //TODO:acquire outer storage permission
         }
     }
 
@@ -146,6 +151,8 @@ fun MainView() {
     val focusManager = LocalFocusManager.current
     val showDialog = remember { mutableStateOf(false) }
     var isRunning = false
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -173,10 +180,16 @@ fun MainView() {
                             .setOnClickListener(
                                 android.R.id.icon,
                                 EasyWindow.OnClickListener { _: EasyWindow<*>?, _: ImageView? ->
-                                    if (Build.VERSION.SDK_INT < 34 && APP.getScreenshotPermission() != null) {
-                                        APP.startScreenshot()
-                                    }else{
-                                        APP.startScreenTask(APP)
+                                    if (!Settings.canDrawOverlays(context)) {
+                                        Toaster.show(context.getString(R.string.float_window_permission_not_get))
+                                    }
+                                    if (CapturePermission.intent == null) {
+                                        val acquireIntent = Intent(context, AcquireCapturePermission::class.java)
+                                        acquireIntent.flags = FLAG_ACTIVITY_NEW_TASK
+                                        context.startActivity(acquireIntent)
+                                    } else {
+                                        val intent = Intent(context, ScreenshotService::class.java)
+                                        context.startService(intent)
                                     }
                                 } as EasyWindow.OnClickListener<ImageView?>)
                             .show()
