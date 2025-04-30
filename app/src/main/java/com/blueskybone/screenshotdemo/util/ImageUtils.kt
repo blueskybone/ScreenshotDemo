@@ -7,8 +7,6 @@ import android.media.Image
 import android.provider.MediaStore
 import com.blueskybone.screenshotdemo.R
 import com.hjq.toast.Toaster
-import java.io.File
-import java.io.FileOutputStream
 
 /**
  *   Created by blueskybone

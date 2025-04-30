@@ -30,15 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.DynamicPermissionActivity"
-            android:excludeFromRecents="true"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:taskAffinity=""
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:windowSoftInputMode="adjustNothing" />
-        <activity
-            android:name=".activity.ScreenshotActivity"
+            android:name=".service.AcquireCapturePermission"
             android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleTask"
@@ -47,7 +39,7 @@
             android:windowSoftInputMode="adjustNothing" />
 
         <service
-            android:name=".service.NotificationService"
+            android:name=".service.ScreenshotService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="mediaProjection" />
@@ -55,7 +47,7 @@
             android:name=".service.QuickTileService"
             android:enabled="true"
             android:exported="true"
-            android:icon="@drawable/icon"
+            android:icon="@drawable/ic_ntf"
             android:label="@string/quick_tile_name"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
             tools:targetApi="q">
